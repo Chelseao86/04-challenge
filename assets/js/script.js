@@ -10,6 +10,7 @@ var textEl = document.querySelector("#text");
 var inputEl = document.createElement("input")
 
 
+
 // Q1 VARIABLES
 var q1 = "Commonly used data typed DO NOT inlcude:"
 var q1Answers = ["strings", "booleans", "alert", "numbers"]
@@ -35,16 +36,18 @@ var q5 = "A very useful tool used during development and debugging for printing 
 var q5Answers = ["javaScript", "terminal/ bash", "tor loops", "console log"]
 var q5ValidA = "console log"
 
-
-// QUESTION INDEX
+// QUESTION 1 INDEX
 var index=1
 var currentQ=q1
 var currentList=q1Answers
 var currentA=q1ValidA
 
-
-
 // ANSWER CHECKER
+setTimeout(timeout, 5000)
+function timeout () {
+}
+
+
 var checkAnswer = function (event) {
 var replyEl = document.createElement ("div")
     if (event.target.innerHTML===currentA) {
@@ -68,16 +71,19 @@ else if (index===3) {
     currentQ=q3
     currentList=q3Answers
     currentA=q3ValidA
+    presentQuestion()
 }
 else if (index===4) {
     currentQ=q4
     currentList=q4Answers
     currentA=q4ValidA
+    presentQuestion()
 }
     else if (index===5) {
         currentQ=q5
         currentList=q5Answers
         currentA=q5ValidA
+        presentQuestion()
     }
     else {
 endQuiz ()
@@ -86,7 +92,6 @@ endQuiz ()
 
 // QUESTION CHANGE FUNCTIONS
 var presentQuestion = function() {
-
 titleEl.innerHTML = currentQ;
 var a1El = document.createElement ("ol");
 textEl.innerHTML = "";
@@ -104,7 +109,6 @@ buttonEl.setAttribute("style", "display:none")
 var startQuiz = function () {
     countdown();
     presentQuestion();
-
 }
 
 buttonEl.addEventListener("click", startQuiz);
@@ -118,15 +122,14 @@ function countdown() {
         timerEl.textContent = ' Time Left:' + timeLeft;
         timeLeft--;
       } else {
-        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
         timerEl.textContent = '';
-        // Use `clearInterval()` to stop the timer
         clearInterval(timeInterval);
       }
     }, 1000);
-  console.log(timeInterval)}
+  }
   
 var submitScore = function () {
+    
     titleEl.innerHTML = "";
     var a1El = document.createElement ("ol");
    console.log(localStorage.getItem("Highscores2"))
@@ -147,6 +150,18 @@ var goBackEl = document.createElement("button")
 goBackEl.innerHTML = "Go Back"
 goBackEl.addEventListener("click", presentQuestion);
 textEl.appendChild(goBackEl)
+
+
+function clearHighScores()  {
+    localStorage.setItem("Highscores2", JSON.stringify([]))
+    textEl.innerHTML = ""
+}
+var clearEl = document.createElement("button")
+clearEl.innerHTML = "Clear Highscores"
+clearEl.addEventListener("click", clearHighScores);
+textEl.appendChild(clearEl)
+
+
 }
 
 // save initials & end
